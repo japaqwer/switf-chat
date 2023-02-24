@@ -1,9 +1,12 @@
 // Import the functions you need from the SDKs you need
+const { Storage } = require('@google-cloud/storage');
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { getStorage } from 'firebase/storage';
 import { getFirestore } from 'firebase/firestore';
 import 'firebase/storage';
+
+
 
 const firebaseConfig = {
     apiKey: "AIzaSyACstuj_upo1bCBxL947ALUpkJ0u9cvno8",
@@ -19,6 +22,10 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
-export const storage = getStorage(app);
+export const storage = new Storage({ projectId: 'video-f2e7f',
+    credentials: { client_email: process.env.FIREBASE_CLIENT_EMAIL,
+                    private_key: process.env.FIREBASE_PRIVATE_KEY_WITH_QUOTES
+                  } 
+  })
 export const db = getFirestore(app);
 export default app;
